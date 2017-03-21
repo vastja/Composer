@@ -14,6 +14,8 @@ public class KDTree {
     private final Double[] z;
     /** Kren stromu */
     private final Node root;
+    /** Box container of points space */
+    private final Box box;
 
     /**
      * Konstruktor
@@ -27,6 +29,7 @@ public class KDTree {
         this.z = z;
         
         this.root = build(0, x.length - 1, 'x');
+        this.box = findSearchBox();
     }
 
     /**
@@ -283,4 +286,72 @@ public class KDTree {
         return Median.findMedian(a, b, c, bot, top, bot + (top - bot) / 2);
     }
 
+    /**
+     * Method search for minimal and maximal [X,Y,Z] coordinates of KDTree
+     * - we can close the KDtree points space to 3D cube
+     * @return Box container 
+     */
+    private Box findSearchBox() {
+    	
+    	double maxX = Double.MIN_VALUE;
+    	double minX = Double.MAX_VALUE;
+    	double maxY = Double.MIN_VALUE;
+    	double minY = Double.MAX_VALUE;
+    	double maxZ = Double.MIN_VALUE;
+    	double minZ = Double.MAX_VALUE;
+    	
+    	for (int i = 0; i < x.length; i++) {
+    		
+    		if (maxX < x[i]) {
+    			maxX = x[i];
+    		}
+    		
+    		if (minX < x[i]) {
+    			minX = x[i];
+    		}
+    		
+    		if (maxY < y[i]) {
+    			maxY = y[i];
+    		}
+    		
+    		if (minY < y[i]) {
+    			minY = y[i];
+    		}
+    		
+    		if (maxZ < z[i]) {
+    			maxZ = z[i];
+    		}
+    		
+    		if (minZ < z[i]) {
+    			minZ = z[i];
+    		}
+    	}
+    	
+    	return new Box(minX, maxX, minY, maxY, minZ, maxZ);
+    }
+    
+    /**
+     * Get method for box
+     * @return box
+     */
+    public Box getSearchingBox() {
+    	return this.box;
+    }
+    
+    /**
+     * Find out if given point is in seraching box of KDTree
+     * @param point point for detection
+     * @return true - point lays in seraching box, false - point doesnt lay ins earching box
+     */
+    public boolean isInSearchingBox(Point point) {
+    	
+    	boolean isValidX = (Double.compare(point.x, box.maxX) <= 0) && (Double.compare(point.x, box.minX) >= 0);
+    	boolean isValidY = (Double.compare(point.y, box.maxY) <= 0) && (Double.compare(point.y, box.minY) >= 0);
+    	boolean isValidZ = (Double.compare(point.z, box.maxZ) <= 0) && (Double.compare(point.z, box.minZ) >= 0);
+    	
+    	return isValidX && isValidY && isValidZ;
+    			
+    }
+    
+   
 }

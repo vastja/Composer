@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import overlay.Box;
 import overlay.KDTree;
 import overlay.Point;
 
@@ -125,6 +126,16 @@ public class ComposeUtility {
             result.flush();
 			result.close();
 			
+			//--------------
+			fVertexs = null;
+			fTriangles = null;
+			sVertexs = null;
+			sTriangles = null;
+			
+		    x = null;
+            y = null;
+            z = null;
+            //--------------
 			return file.getName();
 		}
 		catch (FileNotFoundException e) {
@@ -226,7 +237,6 @@ public class ComposeUtility {
 
 			if (line.charAt(0) == 'v') {
 				writeToFile(line, result);
-				// Pripocitavam pocet vrholu do staticke promene
 				vertexCount++;
 				source.mark(100);
 			} else if (line.charAt(0) == 'f') {
@@ -254,16 +264,24 @@ public class ComposeUtility {
 		int bad = 0;
 		Double distance;
 		Point point;
-
+		
 		for (String v : vertexs) {
 		
 			// TODO
 			// osetreni null
 			point = new Point(v);
 			
-			distance = kdt.findNearest(point);
+			if (kdt.isInSearchingBox(point)) {
+				distance = kdt.findNearest(point);
+			}
+			else {
+				
+				// If point is not in seraching box distance is maximal so we automaticly add this point 
+				// it means condition distance < treshold cannot be fulfill
+				distance = Double.MAX_VALUE;
+			}
 			
-			if(distance < treshold) {//|| Double.compare(quality, 0.) == 0) {							//Pokud je kvalita mensi nez zvoleny prah
+			if(distance < treshold) {//|| Double.compare(quality, 0.) == 0) { // TODO
 				mapfunc.add(B_SIGN);
 				bad--;
 			}
