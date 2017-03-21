@@ -1,0 +1,12 @@
+.button {
+    -fx-min-width: 125px;
+}
+
+.choicebox {
+   -fx-min-width: 125px; 
+}
+
+.vbox {
+   -fx-padding: 10;
+    -fx-spacing: 10;
+}

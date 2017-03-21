@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+
+<BorderPane fx:controller="gui.FXMLController" xmlns:fx="http://javafx.com/fxml">
+	<center>
+		<HBox>
+			<children>
+				<VBox styleClass = "vbox">
+					<Button text = "Select files" fx:id = "composeSF" onAction = "#compFC"/>
+					<Button text = "Go" fx:id = "composeGo" onAction = "#compG"/>
+					<ChoiceBox styleClass = "choicebox" fx:id = "choiceBox" value = "4">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="2" />
+                                                <String fx:value="4" />
+                                                <String fx:value="6" />
+                                                <String fx:value="8" />
+                                                <String fx:value="10" />
+                                            </FXCollections>
+                                        </items>
+                                        </ChoiceBox>
+				</VBox>
+				<VBox styleClass = "vbox">
+					<Button text = "Select files" fx:id = "editFS"  onAction = "#editFC"/>
+					<Button text = "Go" fx:id = "editGo" onAction = "#editG"/>
+					<Slider fx:id = "slider" min = "0" max = "10"  showTickLabels="true" showTickMarks="true"  blockIncrement="1.0" majorTickUnit = "2"/>
+				</VBox>
+                                <VBox styleClass = "vbox">
+                                    <Label text = "Script driven composition"></Label>
+                                    <Button text = "Select script file" fx:id = "scrip_file_chooser" onAction="#choose_script_file"></Button>
+                                    <Button text = "Go" fx:id = "scriptGo" onAction = "#scriptGo"></Button>
+                                </VBox>
+			</children>
+		</HBox>
+	</center>
+	<bottom>
+		<TextArea editable = "false" fx:id = "textArea" />  
+	</bottom>
+	
+	<stylesheets>
+   		<URL value="@/CSS/style.css" />
+  	</stylesheets>
+  
+</BorderPane>
