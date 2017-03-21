@@ -306,7 +306,7 @@ public class KDTree {
     			maxX = x[i];
     		}
     		
-    		if (minX < x[i]) {
+    		if (minX > x[i]) {
     			minX = x[i];
     		}
     		
@@ -314,7 +314,7 @@ public class KDTree {
     			maxY = y[i];
     		}
     		
-    		if (minY < y[i]) {
+    		if (minY > y[i]) {
     			minY = y[i];
     		}
     		
@@ -322,7 +322,7 @@ public class KDTree {
     			maxZ = z[i];
     		}
     		
-    		if (minZ < z[i]) {
+    		if (minZ > z[i]) {
     			minZ = z[i];
     		}
     	}

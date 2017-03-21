@@ -265,6 +265,9 @@ public class ComposeUtility {
 		Double distance;
 		Point point;
 		
+		
+		int test = 0; 
+		
 		for (String v : vertexs) {
 		
 			// TODO
@@ -279,6 +282,7 @@ public class ComposeUtility {
 				// If point is not in seraching box distance is maximal so we automaticly add this point 
 				// it means condition distance < treshold cannot be fulfill
 				distance = Double.MAX_VALUE;
+				test++;
 			}
 			
 			if(distance < treshold) {//|| Double.compare(quality, 0.) == 0) { // TODO
@@ -288,8 +292,11 @@ public class ComposeUtility {
 			else {
 				mapfunc.add(bad);
 			}
+		
 		}
 
+		composeUtilityLogger.debug("Out of SerachingBox: " + test + " from: " + vertexs.size());
+		
 		/*
 		 * Prepsani mopovaci funkce do pole, aby se s ni lepe pracovalo
 		 */
